@@ -6,6 +6,8 @@ El objetivo es simular una situacion real: una aplicacion web nueva en SvelteKit
 
 Puedes y debes usar IA para trabajar. Programar con IA no es opcional en este cargo. Usa las herramientas que usarias normalmente: Cursor, Claude Code, Codex, ChatGPT, Copilot, documentacion oficial, Google, etc. En la entrevista te vamos a pedir que expliques que hiciste, que te ayudo a hacer la IA y que decisiones tomaste tu.
 
+Todo el ejercicio debe correr localmente con SQLite. No uses Postgres, Supabase, Turso cloud ni ningun servicio externo. El backend legacy usa SQLite y la app SvelteKit tambien debe usar SQLite con Drizzle.
+
 ## Estructura
 
 ```txt
@@ -61,14 +63,14 @@ Queremos que la app SvelteKit deje de depender del backend legacy para mostrar l
 Tu tarea:
 
 1. Crear un schema Drizzle en `packages/web` para categorias y productos.
-2. Crear o ajustar la base de datos local de SvelteKit.
+2. Crear o ajustar la base de datos SQLite local de SvelteKit.
 3. Migrar los datos actuales desde `legacy-api` hacia la base de datos de `web`.
 4. Cambiar la pagina principal para que lea desde Drizzle, no desde `legacy-api`.
 5. Agregar una funcionalidad simple para marcar un producto como disponible/no disponible.
 
 No buscamos una interfaz perfecta. Buscamos que entiendas el flujo completo: dos servidores, datos legacy, migracion, base de datos, SvelteKit y una funcionalidad pequena funcionando.
 
-## Entrega
+## Entrega y videollamada
 
 Haz tus cambios en Git con commits claros.
 
@@ -80,4 +82,15 @@ En tu README o en una seccion al final de este archivo, explica brevemente:
 - Que parte te costo mas.
 - Que mejorarias si tuvieras mas tiempo.
 
-En la videollamada vamos a pedirte que compartas pantalla y nos muestres la solucion corriendo.
+Despues de entregar el ejercicio haremos una videollamada. En esa llamada vas a compartir pantalla y mostrar el proyecto corriendo.
+
+Te vamos a hacer preguntas sobre:
+
+- Que herramientas usaste, incluyendo herramientas de IA.
+- Como levantaste los dos servidores.
+- Como esta organizada la estructura del codigo.
+- Como migraste los datos desde `legacy-api` hacia Drizzle.
+- Donde quedan guardados los datos.
+- Que partes entendiste bien y que partes resolverias distinto con mas tiempo.
+
+Lo mas importante en la videollamada no es que el proyecto este perfecto. Lo mas importante es que puedas mostrar comprension: que sepas explicar lo que hiciste, por que lo hiciste y como funciona tu solucion.

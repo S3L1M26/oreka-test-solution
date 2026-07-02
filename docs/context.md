@@ -21,6 +21,8 @@ El ejercicio debe mantener dos piezas:
 - `legacy-api`: fuente actual de datos, separada de la app principal.
 - `web`: app SvelteKit nueva, con Drizzle instalado, que debe absorber esos datos.
 
+Todo debe quedarse en SQLite local. No queremos que el candidato use Postgres, Supabase, Turso cloud ni servicios externos, porque eso agrega friccion que no queremos evaluar. El punto es ver si entiende la migracion y el flujo full stack, no si sabe configurar infraestructura.
+
 La prueba importante no es si el candidato conoce Hono o SvelteKit de memoria. La prueba importante es si puede leer, levantar, conectar, migrar y explicar.
 
 ## Lo que queremos observar
@@ -33,6 +35,7 @@ Buenas senales:
 - Migra datos sin perder relaciones entre categorias y productos.
 - Puede explicar el antes y despues de la arquitectura.
 - Agrega la funcionalidad de disponibilidad sin sobredisenar.
+- Presenta compartiendo pantalla y demuestra comprension real de lo que entrego.
 
 Malas senales:
 
@@ -42,4 +45,4 @@ Malas senales:
 - Elimina el backend legacy sin migrar datos.
 - No puede explicar donde quedan guardados los productos.
 - No deja instrucciones para correr su solucion.
-
+- No sabe responder preguntas basicas sobre la estructura del codigo o el uso de IA.
