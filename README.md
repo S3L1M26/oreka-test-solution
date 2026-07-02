@@ -1,96 +1,97 @@
 # Oreka Developer Test
 
-Este repositorio es un ejercicio tecnico para postular al cargo de Desarrollador/a Full Stack Junior en Oreka.
+This repository is a technical exercise for the Junior Full Stack Developer role at Oreka.
 
-El objetivo es simular una situacion real: una aplicacion web nueva en SvelteKit todavia depende de un backend legacy separado. Tu tarea sera entender ambas partes, levantar los dos servidores y migrar la carta del restaurante hacia SvelteKit usando Drizzle.
+The goal is to simulate a real situation: a new SvelteKit web app still depends on a separate legacy backend. Your task is to understand both parts, run both servers, and migrate the restaurant menu into SvelteKit using Drizzle.
 
-Puedes y debes usar IA para trabajar. Programar con IA no es opcional en este cargo. Usa las herramientas que usarias normalmente: Cursor, Claude Code, Codex, ChatGPT, Copilot, documentacion oficial, Google, etc. En la entrevista te vamos a pedir que expliques que hiciste, que te ayudo a hacer la IA y que decisiones tomaste tu.
+You can and should use AI while working. Programming with AI is not optional for this role. Use the tools you would normally use: Cursor, Claude Code, Codex, ChatGPT, Copilot, official documentation, Google, etc. In the interview, we will ask you to explain what you did, what AI helped you with, and which decisions you made yourself.
 
-Todo el ejercicio debe correr localmente con SQLite. No uses Postgres, Supabase, Turso cloud ni ningun servicio externo. El backend legacy usa SQLite y la app SvelteKit tambien debe usar SQLite con Drizzle.
+The entire exercise must run locally with SQLite. Do not use Postgres, Supabase, Turso Cloud, or any external service. The legacy backend uses SQLite, and the SvelteKit app must also use SQLite with Drizzle.
 
-## Estructura
+## Structure
 
 ```txt
 packages/
-  legacy-api/   Backend legacy en Hono. Expone la carta actual del restaurante.
-  web/          Aplicacion SvelteKit. Tiene Drizzle instalado, pero todavia lee desde legacy-api.
+  legacy-api/   Legacy backend built with Hono. Exposes the current restaurant menu.
+  web/          SvelteKit app. Drizzle is installed, but it still reads from legacy-api.
 docs/
-  context.md    Contexto del ejercicio y que estamos intentando evaluar.
+  context.md    Context for the exercise and what we are trying to evaluate.
 ```
 
-## Como correr el proyecto
+## How to Run the Project
 
-Instala dependencias desde la raiz:
+Install dependencies from the repository root:
 
 ```sh
 pnpm install
 ```
 
-Prepara las variables locales de la app web:
+Prepare local environment variables for the web app:
 
 ```sh
 cp packages/web/.env.example packages/web/.env
 ```
 
-Levanta el backend legacy en una terminal:
+Start the legacy backend in one terminal:
 
 ```sh
 pnpm dev:legacy
 ```
 
-Levanta la app web en otra terminal:
+Start the web app in another terminal:
 
 ```sh
 pnpm dev:web
 ```
 
-La app web corre normalmente en `http://localhost:5173`.
-El backend legacy corre en `http://localhost:8787`.
+The web app usually runs at `http://localhost:5173`.
+The legacy backend runs at `http://localhost:8787`.
 
-Para revisar que el backend legacy esta vivo:
+To check that the legacy backend is alive:
 
 ```sh
 curl http://localhost:8787/health
 curl http://localhost:8787/api/menu
 ```
 
-## Mision
+## Mission
 
-Hoy `packages/web` muestra la carta consultando `packages/legacy-api`.
+Today `packages/web` displays the menu by querying `packages/legacy-api`.
 
-Queremos que la app SvelteKit deje de depender del backend legacy para mostrar la carta.
+We want the SvelteKit app to stop depending on the legacy backend to display the menu.
 
-Tu tarea:
+Your task:
 
-1. Crear un schema Drizzle en `packages/web` para categorias y productos.
-2. Crear o ajustar la base de datos SQLite local de SvelteKit.
-3. Migrar los datos actuales desde `legacy-api` hacia la base de datos de `web`.
-4. Cambiar la pagina principal para que lea desde Drizzle, no desde `legacy-api`.
-5. Agregar una funcionalidad simple para marcar un producto como disponible/no disponible.
+1. Create a Drizzle schema in `packages/web` for categories and products.
+2. Create or adjust the local SQLite database used by SvelteKit.
+3. Migrate the current data from `legacy-api` into the `web` database.
+4. Change the main page so it reads from Drizzle instead of `legacy-api`.
+5. Add a small feature to mark a product as available/unavailable.
 
-No buscamos una interfaz perfecta. Buscamos que entiendas el flujo completo: dos servidores, datos legacy, migracion, base de datos, SvelteKit y una funcionalidad pequena funcionando.
+We are not looking for a perfect interface. We want to see that you understand the full flow: two servers, legacy data, migration, database, SvelteKit, and a small working feature.
 
-## Entrega y videollamada
+## Submission and Video Call
 
-Haz tus cambios en Git con commits claros.
+Make your changes in Git with clear commits.
 
-En tu README o en una seccion al final de este archivo, explica brevemente:
+In your README, or in a section at the end of this file, briefly explain:
 
-- Como correr tu solucion.
-- Que cambiaste.
-- Que herramienta de IA usaste y para que.
-- Que parte te costo mas.
-- Que mejorarias si tuvieras mas tiempo.
+- How to run your solution.
+- What you changed.
+- Which AI tool you used and what you used it for.
+- Which part was hardest.
+- What you would improve if you had more time.
 
-Despues de entregar el ejercicio haremos una videollamada. En esa llamada vas a compartir pantalla y mostrar el proyecto corriendo.
+After you submit the exercise, we will schedule a video call. In that call, you will share your screen and show the project running.
 
-Te vamos a hacer preguntas sobre:
+We will ask you questions about:
 
-- Que herramientas usaste, incluyendo herramientas de IA.
-- Como levantaste los dos servidores.
-- Como esta organizada la estructura del codigo.
-- Como migraste los datos desde `legacy-api` hacia Drizzle.
-- Donde quedan guardados los datos.
-- Que partes entendiste bien y que partes resolverias distinto con mas tiempo.
+- Which tools you used, including AI tools.
+- How you started both servers.
+- How the codebase is organized.
+- How you migrated the data from `legacy-api` into Drizzle.
+- Where the data is stored.
+- Which parts you understood well and what you would solve differently with more time.
 
-Lo mas importante en la videollamada no es que el proyecto este perfecto. Lo mas importante es que puedas mostrar comprension: que sepas explicar lo que hiciste, por que lo hiciste y como funciona tu solucion.
+The most important thing in the video call is not that the project is perfect. The most important thing is that you can show understanding: that you can explain what you did, why you did it, and how your solution works.
+

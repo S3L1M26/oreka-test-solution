@@ -1,48 +1,49 @@
-# Contexto del ejercicio
+# Exercise Context
 
-Este repositorio esta pensado como test tecnico para contratar a un desarrollador junior para Oreka.
+This repository is intended as a technical test for hiring a junior developer at Oreka.
 
-La idea no es evaluar conocimiento avanzado de frameworks, sino una forma de trabajar:
+The idea is not to evaluate advanced framework knowledge, but a way of working:
 
-- Clonar y entender un repositorio desconocido.
-- Levantar dos procesos separados en terminal.
-- Entender como una app web consume datos de un backend legacy.
-- Usar IA de forma activa para programar, investigar y debuggear.
-- Diseñar una migracion simple de datos.
-- Usar Drizzle dentro de SvelteKit.
-- Comunicar decisiones tecnicas con claridad.
+- Clone and understand an unfamiliar repository.
+- Run two separate processes in the terminal.
+- Understand how a web app consumes data from a legacy backend.
+- Use AI actively to program, research, and debug.
+- Design a simple data migration.
+- Use Drizzle inside SvelteKit.
+- Communicate technical decisions clearly.
 
-## Decisiones del starter
+## Starter Decisions
 
-El backend legacy usa Hono en vez de Strapi. La razon es pragmatica: Strapi se parece mas al caso real, pero mete demasiado ruido para un test tecnico corto. Hono permite simular el mismo problema arquitectonico sin hacer que el candidato pierda tiempo peleando con configuraciones pesadas.
+The legacy backend uses Hono instead of Strapi. The reason is pragmatic: Strapi is closer to the real case, but it adds too much noise for a short technical test. Hono lets us simulate the same architectural problem without making the candidate lose time fighting heavy configuration.
 
-El ejercicio debe mantener dos piezas:
+The exercise must keep two pieces:
 
-- `legacy-api`: fuente actual de datos, separada de la app principal.
-- `web`: app SvelteKit nueva, con Drizzle instalado, que debe absorber esos datos.
+- `legacy-api`: the current data source, separated from the main app.
+- `web`: the new SvelteKit app, with Drizzle installed, which must absorb that data.
 
-Todo debe quedarse en SQLite local. No queremos que el candidato use Postgres, Supabase, Turso cloud ni servicios externos, porque eso agrega friccion que no queremos evaluar. El punto es ver si entiende la migracion y el flujo full stack, no si sabe configurar infraestructura.
+Everything must stay local with SQLite. We do not want the candidate to use Postgres, Supabase, Turso Cloud, or external services, because that adds friction we are not trying to evaluate. The point is to see whether they understand the migration and the full stack flow, not whether they can configure infrastructure.
 
-La prueba importante no es si el candidato conoce Hono o SvelteKit de memoria. La prueba importante es si puede leer, levantar, conectar, migrar y explicar.
+The important test is not whether the candidate knows Hono or SvelteKit by heart. The important test is whether they can read, run, connect, migrate, and explain.
 
-## Lo que queremos observar
+## What We Want to Observe
 
-Buenas senales:
+Good signals:
 
-- Corre ambos servidores sin quedarse bloqueado.
-- Usa IA, pero entiende el codigo que entrega.
-- Hace un schema Drizzle razonable.
-- Migra datos sin perder relaciones entre categorias y productos.
-- Puede explicar el antes y despues de la arquitectura.
-- Agrega la funcionalidad de disponibilidad sin sobredisenar.
-- Presenta compartiendo pantalla y demuestra comprension real de lo que entrego.
+- Runs both servers without getting blocked.
+- Uses AI, but understands the code they submit.
+- Creates a reasonable Drizzle schema.
+- Migrates data without losing relationships between categories and products.
+- Can explain the before and after of the architecture.
+- Adds the availability feature without overengineering.
+- Presents by sharing their screen and demonstrates real understanding of what they submitted.
 
-Malas senales:
+Bad signals:
 
-- No logra levantar el proyecto y no sabe diagnosticar por que.
-- Copia codigo de IA sin entenderlo.
-- Resuelve solo la interfaz y evita la base de datos.
-- Elimina el backend legacy sin migrar datos.
-- No puede explicar donde quedan guardados los productos.
-- No deja instrucciones para correr su solucion.
-- No sabe responder preguntas basicas sobre la estructura del codigo o el uso de IA.
+- Cannot run the project and cannot diagnose why.
+- Copies AI-generated code without understanding it.
+- Solves only the interface and avoids the database.
+- Deletes the legacy backend without migrating the data.
+- Cannot explain where products are stored.
+- Does not leave instructions for running their solution.
+- Cannot answer basic questions about the code structure or AI usage.
+

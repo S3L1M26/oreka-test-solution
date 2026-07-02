@@ -33,35 +33,35 @@ export async function ensureLegacyData() {
 	await db.batch([
 		{
 			sql: 'INSERT INTO categories (id, name, display_order) VALUES (?, ?, ?)',
-			args: [1, 'Entradas', 1]
+			args: [1, 'Starters', 1]
 		},
 		{
 			sql: 'INSERT INTO categories (id, name, display_order) VALUES (?, ?, ?)',
-			args: [2, 'Fondos', 2]
+			args: [2, 'Main Courses', 2]
 		},
 		{
 			sql: 'INSERT INTO categories (id, name, display_order) VALUES (?, ?, ?)',
-			args: [3, 'Postres', 3]
+			args: [3, 'Desserts', 3]
 		},
 		{
 			sql: 'INSERT INTO products (id, category_id, name, description, price, is_available) VALUES (?, ?, ?, ?, ?, ?)',
-			args: [1, 1, 'Croquetas de jamon', 'Croquetas cremosas con alioli de la casa.', 6900, 1]
+			args: [1, 1, 'Ham croquettes', 'Creamy croquettes with house aioli.', 6900, 1]
 		},
 		{
 			sql: 'INSERT INTO products (id, category_id, name, description, price, is_available) VALUES (?, ?, ?, ?, ?, ?)',
-			args: [2, 1, 'Tostada de tomate', 'Pan de masa madre, tomate rallado y aceite de oliva.', 5900, 1]
+			args: [2, 1, 'Tomato toast', 'Sourdough bread, grated tomato, and olive oil.', 5900, 1]
 		},
 		{
 			sql: 'INSERT INTO products (id, category_id, name, description, price, is_available) VALUES (?, ?, ?, ?, ?, ?)',
-			args: [3, 2, 'Ravioles de ricotta', 'Ravioles con salsa de mantequilla y salvia.', 12900, 1]
+			args: [3, 2, 'Ricotta ravioli', 'Ravioli with butter and sage sauce.', 12900, 1]
 		},
 		{
 			sql: 'INSERT INTO products (id, category_id, name, description, price, is_available) VALUES (?, ?, ?, ?, ?, ?)',
-			args: [4, 2, 'Pollo grillado', 'Pollo de campo con papas doradas.', 13900, 0]
+			args: [4, 2, 'Grilled chicken', 'Free-range chicken with golden potatoes.', 13900, 0]
 		},
 		{
 			sql: 'INSERT INTO products (id, category_id, name, description, price, is_available) VALUES (?, ?, ?, ?, ?, ?)',
-			args: [5, 3, 'Tarta de limon', 'Tarta fria de limon con merengue.', 5900, 1]
+			args: [5, 3, 'Lemon tart', 'Chilled lemon tart with meringue.', 5900, 1]
 		}
 	]);
 }
@@ -101,4 +101,3 @@ export async function getMenu() {
 		products: products.filter((product) => product.categoryId === Number(category.id))
 	}));
 }
-

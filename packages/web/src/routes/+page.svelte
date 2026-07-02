@@ -18,14 +18,14 @@
 <main class="menu-page">
 	<header>
 		<p class="eyebrow">Oreka Legacy Migration Test</p>
-		<h1>Carta del restaurante</h1>
+		<h1>Restaurant menu</h1>
 		<p>
-			Esta pagina todavia lee datos desde <code>legacy-api</code>. La mision es migrar la carta a
-			Drizzle dentro de SvelteKit.
+			This page still reads data from <code>legacy-api</code>. The mission is to migrate the
+			menu into Drizzle inside SvelteKit.
 		</p>
 	</header>
 
-	<section class="menu-list" aria-label="Carta">
+	<section class="menu-list" aria-label="Menu">
 		{#each data.menu.categories as category}
 			<article class="category">
 				<h2>{category.name}</h2>
@@ -39,7 +39,7 @@
 							</div>
 							<div class="product-meta">
 								<strong>{formatPrice(product.price)}</strong>
-								<span>{product.isAvailable ? 'Disponible' : 'No disponible'}</span>
+								<span>{product.isAvailable ? 'Available' : 'Unavailable'}</span>
 							</div>
 						</div>
 					{/each}

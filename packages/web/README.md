@@ -1,19 +1,20 @@
 # Web
 
-Aplicacion SvelteKit del ejercicio.
+SvelteKit application for the exercise.
 
-Hoy muestra la carta del restaurante leyendo datos desde `legacy-api`. La mision del test es migrar esos datos a la base local de SvelteKit usando Drizzle y hacer que esta app deje de depender del backend legacy para mostrar la carta.
+Today it displays the restaurant menu by reading data from `legacy-api`. The mission of the test is to migrate that data into the local SvelteKit database using Drizzle and make this app stop depending on the legacy backend to display the menu.
 
-## Desarrollo
+## Development
 
-Desde la raiz del repositorio:
+From the repository root:
 
 ```sh
 pnpm dev:web
 ```
 
-O desde esta carpeta:
+Or from this folder:
 
 ```sh
 pnpm dev
 ```
+
