@@ -1,0 +1,21 @@
+{
+	"name": "legacy-api",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "tsx watch src/index.ts",
+		"check": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@hono/node-server": "^1.14.4",
+		"@libsql/client": "^0.17.3",
+		"hono": "^4.10.7"
+	},
+	"devDependencies": {
+		"@types/node": "^22",
+		"tsx": "^4.20.6",
+		"typescript": "^6.0.3"
+	}
+}
+

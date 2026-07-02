@@ -1,0 +1,12 @@
+{
+	"name": "oreka-dev-test",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev:legacy": "pnpm --filter legacy-api dev",
+		"dev:web": "pnpm --filter web dev",
+		"check": "pnpm --filter legacy-api check && pnpm --filter web check"
+	}
+}
+
