@@ -20,8 +20,7 @@
 		<p class="eyebrow">Oreka Legacy Migration Test</p>
 		<h1>Restaurant menu</h1>
 		<p>
-			This page still reads data from <code>legacy-api</code>. The mission is to migrate the
-			menu into Drizzle inside SvelteKit.
+			This menu now comes from the local SQLite database managed with Drizzle inside SvelteKit.
 		</p>
 	</header>
 
@@ -84,12 +83,6 @@
 	header p {
 		max-width: 680px;
 		color: #4b5563;
-	}
-
-	code {
-		border-radius: 4px;
-		background: #f3f4f6;
-		padding: 2px 5px;
 	}
 
 	.menu-list {
