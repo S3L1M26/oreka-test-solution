@@ -1,35 +1,25 @@
-import { env } from '$env/dynamic/private';
-import type { PageServerLoad } from './$types';
+import { fail } from '@sveltejs/kit';
+import type { Actions, PageServerLoad } from './$types';
+import { ensureMenuSeeded, getMenu } from '$lib/server/db/menu';
+import { toggleProductAvailability } from '$lib/server/db/menu';
 
-type LegacyProduct = {
-	id: number;
-	categoryId: number;
-	name: string;
-	description: string;
-	price: number;
-	isAvailable: boolean;
+export const load: PageServerLoad = async () => {
+	await ensureMenuSeeded();
+	const categories = await getMenu();
+
+	return { menu: { categories } };
 };
 
-type LegacyCategory = {
-	id: number;
-	name: string;
-	displayOrder: number;
-	products: LegacyProduct[];
-};
+export const actions: Actions = {
+	toggleAvailability: async ({ request }) => {
+		const formData = await request.formData();
+		const productId = Number(formData.get('productId'));
 
-type LegacyMenuResponse = {
-	categories: LegacyCategory[];
-};
+		if (!Number.isInteger(productId) || productId <= 0) {
+			return fail(400, { message: 'Invalid product id' });
+		}
 
-export const load: PageServerLoad = async ({ fetch }) => {
-	const legacyApiUrl = env.LEGACY_API_URL ?? 'http://localhost:8787';
-	const response = await fetch(`${legacyApiUrl}/api/menu`);
-
-	if (!response.ok) {
-		throw new Error(`Could not load menu from legacy-api: ${response.status}`);
+		await toggleProductAvailability(productId);
+		return { success: true };
 	}
-
-	const menu = (await response.json()) as LegacyMenuResponse;
-
-	return { menu };
 };

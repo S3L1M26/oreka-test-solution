@@ -20,8 +20,7 @@
 		<p class="eyebrow">Oreka Legacy Migration Test</p>
 		<h1>Restaurant menu</h1>
 		<p>
-			This page still reads data from <code>legacy-api</code>. The mission is to migrate the
-			menu into Drizzle inside SvelteKit.
+			This menu now comes from the local SQLite database managed with Drizzle inside SvelteKit.
 		</p>
 	</header>
 
@@ -40,6 +39,12 @@
 							<div class="product-meta">
 								<strong>{formatPrice(product.price)}</strong>
 								<span>{product.isAvailable ? 'Available' : 'Unavailable'}</span>
+								<form method="POST" action="?/toggleAvailability" class="availability-form">
+									<input type="hidden" name="productId" value={product.id} />
+									<button type="submit">
+										{product.isAvailable ? 'Mark unavailable' : 'Mark available'}
+									</button>
+								</form>
 							</div>
 						</div>
 					{/each}
@@ -78,12 +83,6 @@
 	header p {
 		max-width: 680px;
 		color: #4b5563;
-	}
-
-	code {
-		border-radius: 4px;
-		background: #f3f4f6;
-		padding: 2px 5px;
 	}
 
 	.menu-list {
@@ -140,6 +139,25 @@
 	.product-meta span {
 		color: #047857;
 		font-size: 0.85rem;
+	}
+
+	.availability-form {
+		margin: 0;
+	}
+
+	.availability-form button {
+		border: 1px solid #d1d5db;
+		border-radius: 999px;
+		background: white;
+		padding: 6px 12px;
+		color: #111827;
+		font-size: 0.82rem;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	.availability-form button:hover {
+		background: #f9fafb;
 	}
 
 	.product.unavailable {

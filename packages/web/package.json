@@ -17,6 +17,7 @@
 		"db:push": "drizzle-kit push",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
+		"db:seed": "node scripts/seed.mjs",
 		"db:studio": "drizzle-kit studio"
 	},
 	"devDependencies": {
@@ -48,5 +49,8 @@
 		"vite": "^8.0.16",
 		"vitest": "^4.1.8",
 		"vitest-browser-svelte": "^2.1.1"
+	},
+	"dependencies": {
+		"dotenv": "^17.4.2"
 	}
 }

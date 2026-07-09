@@ -95,3 +95,129 @@ We will ask you questions about:
 
 The most important thing in the video call is not that the project is perfect. The most important thing is that you can show understanding: that you can explain what you did, why you did it, and how your solution works.
 
+## Final Notes
+
+### How to run the solution
+
+From the repository root:
+
+```sh
+pnpm install
+pnpm --filter web db:push
+pnpm --filter web db:seed
+pnpm dev:legacy
+pnpm dev:web
+```
+
+The web app runs at `http://localhost:5173` and reads the menu from the local SQLite database managed by Drizzle.
+
+### Current flow
+
+The current flow is:
+
+1. The Drizzle schema defines `categories` and `products` in `packages/web/src/lib/server/db/schema.ts`.
+2. The local SQLite connection is created in `packages/web/src/lib/server/db/index.ts` using `DATABASE_URL`.
+3. The first request to the app calls `ensureMenuSeeded()` so the database is populated if it is empty.
+4. The page server load reads the menu from Drizzle and returns the nested shape used by the Svelte UI.
+5. The page renders the categories and products.
+6. The availability button sends a POST action to the server, which flips `isAvailable` in the database.
+
+That means the legacy backend is still available in the repo, but the web app no longer depends on it to render the menu.
+
+### Code examples
+
+Schema and relations:
+
+```ts
+export const categories = sqliteTable('categories', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  name: text('name').notNull(),
+  displayOrder: integer('display_order').notNull()
+});
+
+export const products = sqliteTable('products', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  categoryId: integer('category_id').notNull().references(() => categories.id),
+  name: text('name').notNull(),
+  price: integer('price').notNull(),
+  isAvailable: integer('is_available', { mode: 'boolean' }).notNull().default(true)
+});
+```
+
+Seed and initial load:
+
+```ts
+export async function ensureMenuSeeded() {
+  const existingCategories = await db.select({ id: categories.id }).from(categories).limit(1);
+
+  if (existingCategories.length > 0) return;
+
+  await db.insert(categories).values(menuSeed.categories);
+  await db.insert(products).values(menuSeed.products);
+}
+```
+
+Page server load:
+
+```ts
+export const load: PageServerLoad = async () => {
+  await ensureMenuSeeded();
+  const categories = await getMenu();
+
+  return { menu: { categories } };
+};
+```
+
+Toggle action:
+
+```ts
+export const actions: Actions = {
+  toggleAvailability: async ({ request }) => {
+    const formData = await request.formData();
+    const productId = Number(formData.get('productId'));
+    await toggleProductAvailability(productId);
+    return { success: true };
+  }
+};
+```
+
+UI button:
+
+```svelte
+<form method="POST" action="?/toggleAvailability" class="availability-form">
+  <input type="hidden" name="productId" value={product.id} />
+  <button type="submit">
+    {product.isAvailable ? 'Mark unavailable' : 'Mark available'}
+  </button>
+</form>
+```
+
+### What changed
+
+- Added a Drizzle schema for `categories` and `products` in `packages/web`.
+- Connected SvelteKit to a local SQLite database.
+- Seeded the local database with the initial menu data.
+- Migrated the main page to read from Drizzle instead of the legacy backend.
+- Added a server action and UI control to toggle product availability.
+
+### AI used
+
+- I used Copilot to inspect the repo, identify the data flow, and draft the schema, seed flow, and action wiring.
+- I used the terminal and SvelteKit/Drizzle checks to validate the implementation.
+
+### Architecture notes
+
+- The legacy backend still exists as a reference source and can be started with `pnpm dev:legacy`.
+- The SvelteKit app uses its own local SQLite database through Drizzle, so the menu can be rendered even if the legacy process is not used at runtime.
+- The menu data keeps the original relationship between categories and products, and the availability flag is persisted in the same database row.
+
+### Hardest part
+
+- Making the seed and database setup work reliably in a local-only SQLite flow without depending on the legacy backend at runtime.
+
+### What I would improve with more time
+
+- Replace the duplicated seed data with a proper one-time migration/import flow.
+- Improve the UI feedback after toggling availability.
+- Add a small test around the menu action and the loaded data shape.
+
