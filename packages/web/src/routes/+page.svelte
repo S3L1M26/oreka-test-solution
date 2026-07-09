@@ -40,6 +40,12 @@
 							<div class="product-meta">
 								<strong>{formatPrice(product.price)}</strong>
 								<span>{product.isAvailable ? 'Available' : 'Unavailable'}</span>
+								<form method="POST" action="?/toggleAvailability" class="availability-form">
+									<input type="hidden" name="productId" value={product.id} />
+									<button type="submit">
+										{product.isAvailable ? 'Mark unavailable' : 'Mark available'}
+									</button>
+								</form>
 							</div>
 						</div>
 					{/each}
@@ -140,6 +146,25 @@
 	.product-meta span {
 		color: #047857;
 		font-size: 0.85rem;
+	}
+
+	.availability-form {
+		margin: 0;
+	}
+
+	.availability-form button {
+		border: 1px solid #d1d5db;
+		border-radius: 999px;
+		background: white;
+		padding: 6px 12px;
+		color: #111827;
+		font-size: 0.82rem;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	.availability-form button:hover {
+		background: #f9fafb;
 	}
 
 	.product.unavailable {

@@ -1,4 +1,4 @@
-import { asc } from 'drizzle-orm';
+import { asc, eq } from 'drizzle-orm';
 import { db } from './index';
 import { categories, products } from './schema';
 import { menuSeed } from './menu-data.js';
@@ -57,4 +57,21 @@ export async function getMenu(): Promise<MenuCategory[]> {
 				isAvailable: product.isAvailable
 			}))
 	}));
+}
+
+export async function toggleProductAvailability(productId: number) {
+	const [product] = await db
+		.select({ isAvailable: products.isAvailable })
+		.from(products)
+		.where(eq(products.id, productId))
+		.limit(1);
+
+	if (!product) {
+		throw new Error(`Product not found: ${productId}`);
+	}
+
+	await db
+		.update(products)
+		.set({ isAvailable: !product.isAvailable })
+		.where(eq(products.id, productId));
 }
