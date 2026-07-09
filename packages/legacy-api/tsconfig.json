@@ -8,6 +8,7 @@
 		"esModuleInterop": true,
 		"types": ["node"],
 		"forceConsistentCasingInFileNames": true,
+		"rootDir": "src",
 		"outDir": "dist"
 	},
 	"include": ["src/**/*.ts"]
